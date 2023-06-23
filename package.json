@@ -1,0 +1,19 @@
+{
+  "name": "courses-design",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yusha-g/E-Learning-Courses-DB-and-API.git"
+  },
+  "author": "yusha-g",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yusha-g/E-Learning-Courses-DB-and-API/issues"
+  },
+  "homepage": "https://github.com/yusha-g/E-Learning-Courses-DB-and-API#readme"
+}
