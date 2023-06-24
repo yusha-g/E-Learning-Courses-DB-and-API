@@ -3,6 +3,14 @@ const mysql = require('mysql')
 const dotenv = require("dotenv") //loads environment variables from .env file
 dotenv.config()
 
+/* NOTE!!
+ * REMEMBER TO CREATE YOUR OWN .env FILE BEFORE RUNNING THIS SCRIPT!
+ * things to add in the .env file ->    DB_HOST ('localhost'), 
+ *                                      DB_USERNAME, 
+ *                                      DB_PASSWORD, 
+ *                                      DB (database name),
+ *                                      DB_SOCKETPATH (/Applications/MAMP/tmp/mysql/mysql.sock for MAC) 
+ */
 function connect_DB(){
     let db = mysql.createConnection({
         host: process.env.DB_HOST,
