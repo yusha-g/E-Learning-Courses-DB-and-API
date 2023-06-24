@@ -15,7 +15,8 @@ function mysql_connect(){   //establish mysql connection
         host: "localhost",
         user: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
-        database: "Work_DB"
+        database: "Work_DB",
+        socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock"
     })
     db.connect((err)=>{
         if(err){
@@ -24,8 +25,11 @@ function mysql_connect(){   //establish mysql connection
         else{
             console.log("Successfully connected to DataBase!")
         }
+        return err;
     })
 }
+
+
 
 /*
 ==================
@@ -38,6 +42,16 @@ function mysql_connect(){   //establish mysql connection
 app.get('/', (req, res)=>{
     console.log("Hello")
     res.send("Hi")
-})
+});
 
+app.get('/courses', (req, res)=>{
+    var err = mysql_connect();
+    res.send(err)
+    /*
+    const name = req.query.name;
+    console.log(name)
+    res.send({
+        'name':name
+    });*/
+});
 
