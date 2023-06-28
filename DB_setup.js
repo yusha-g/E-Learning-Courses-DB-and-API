@@ -1,5 +1,5 @@
-const mysql = require('mysql')
-const dotenv = require("dotenv") //loads environment variables from .env file
+import mysql from 'mysql2'
+import dotenv from 'dotenv' //loads environment variables from .env file
 dotenv.config()
 
 /* NOTE!!
@@ -10,6 +10,7 @@ dotenv.config()
  *                                      DB (database name),
  *                                      DB_SOCKETPATH (/Applications/MAMP/tmp/mysql/mysql.sock for MAC) 
  */
+
 var db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USERNAME,
@@ -29,7 +30,7 @@ function execute_query(Q){
 }
 db.connect((err)=>{
     if(err)
-        console.log("Unable to establish connection with Database! "+err)
+        console.log("Unable to establish connection with Database! \n"+err)
     else{
         console.log("=============Successfully Connected to DataBase!=============")
         //CREATE INSTRUCTORS TABLE
