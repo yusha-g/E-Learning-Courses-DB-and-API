@@ -66,3 +66,49 @@ export function validateLearner(learnerObj){
     
     return 0;
 }
+
+//========VALIDATE LEAD INFO==========
+export function validateLead(lead_info){
+    const leadFormat = `
+    {
+        "course_id": number, 
+        "learner_id": number, 
+        "status": "string (Accept / Reject / Waitlist)" :
+    }
+    `;
+    if(lead_info.length !== 3){
+        return "Insufficient Parameters. Should be of the form:\n"+leadFormat;
+    }
+
+    if(
+        typeof lead_info[0] !== 'number' ||
+        typeof lead_info[1] !== 'number' ||
+        !( lead_info[2] == "Accept" || lead_info[2] == "Reject" || lead_info[2] == "Waitlist" )
+    ){
+        return "Type Error! Should be of the form:\n"+leadFormat;
+    }
+    return 0;
+
+}
+
+export function validateComment(comment_info){
+    const commentFormat = `
+    {
+        "lead_id":number, 
+        "instructor_id":number, 
+        "comment":"string"
+    }
+    `;
+    if(comment_info.length !== 3){
+        return "Insufficient Parameters. Should be of the form:\n"+commentFormat;
+    }
+
+    if(
+        typeof comment_info[0] !== 'number' ||
+        typeof comment_info[1] !== 'number' ||
+        typeof comment_info[2] !== 'string'
+    ){
+        return "Type Error! Should be of the form:\n"+commentFormat;
+    }
+    return 0;
+}

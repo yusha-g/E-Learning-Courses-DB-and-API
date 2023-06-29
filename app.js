@@ -1,6 +1,10 @@
 import express, { response } from 'express';
-import {viewCourses, updateCourse, addCourse, removeCourse, registerLead, registerLearner} from './DB_Functions.js'
-import {validateCourses, validateLearner} from './app_validate_input.js'
+import {
+    viewCourses, updateCourse, addCourse, 
+    registerLead, registerLearner, updateLead, searchLead,
+    addComment
+} from './DB_Functions.js'
+import {validateCourses, validateLearner, validateLead, validateComment} from './app_validate_input.js'
 
 const app = express() //setup server
 app.listen(8000,()=>{ //run app on port 8000
@@ -40,18 +44,6 @@ app.post('/course', async (req, res)=>{
         res.send(msg)
 });
 
-//============delete a course by id -- if time permits it
-app.delete('/course/:id',async (req, res)=>{
-    let id = req.params.id;
-    id = Number(id);    //if id is alphanumeric, id will become NaN
-    let msg;
-    if( !isNaN(id) ){
-        msg = await removeCourse(id);
-    }
-    else
-        msg = "Type Error: id should be a number";
-    res.send(msg);
-})
 
 //============update existing course
 app.put('/course/:id', async (req, res)=>{
@@ -87,7 +79,7 @@ app.post('/courses/:id/register', async (req, res)=>{
             msg_2 = await registerLead(c_id, learnerObj[1]);    
         }
         else
-            msg = "Type Error: course and learner id should be a number";
+            msg = "Type Error: course id should be a number";
         res.send(msg+"\n"+msg_2);
     }
     else
@@ -95,6 +87,48 @@ app.post('/courses/:id/register', async (req, res)=>{
 
 })
 
+//============update existing lead
+app.put('/leads/:id', async (req, res)=>{
+    let id = Number (req.params.id);
+    let lead_info = req.body;
+    let leadObj = Object.values(lead_info);
+    let msg = "";
+    if( !isNaN(id) ){
+        msg = validateLead(leadObj)
+        if (msg == 0){
+            msg = await updateLead(id, leadObj);
+        }
+    }
+    else
+        msg = "Type Error: lead id should be a number"
+        
+    res.send(msg)
+})
+
+//============search lead by learner email
+app.get('/leads/:email', async (req, res)=>{
+    let email = req.params.email;
+    const emailFormatRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let msg =""
+    if(emailFormatRegex.test(email)){   //CHECK IF PARAMETER IS A VALID EMAIL
+        msg = await searchLead(email);
+    }
+    else
+        msg = "Parameter should be a valid email address!";
+    res.send(msg);
+})
+
+//============add comment====alt- leads/:id/comment
+app.post('/leads/comment', async (req, res)=>{
+    const comment_info = req.body;
+    const commentObj = Object.values(comment_info);
+    let msg = validateComment(commentObj)
+    if(msg == 0){
+        msg = await addComment(commentObj);
+    }
+    res.send(msg);
+    
+})
 
 /*
 * instructor - name, email
