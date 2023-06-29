@@ -64,7 +64,7 @@ db.connect((err)=>{
             name VARCHAR(255),
             email VARCHAR(255) UNIQUE,
             phone_number VARCHAR(20),
-            linkedin VARCHAR(255) UNIQUE
+            linkedin VARCHAR(255)
         )
         `
         execute_query(createLearners);
@@ -114,8 +114,8 @@ db.connect((err)=>{
         const insertLearners = `
         INSERT INTO Learners (name, email, phone_number, linkedin) VALUES 
             ('Alice Johnson','alicejohnson@example.com',123456789,'linkedin.com/alice'),
-            ('Bob Lee','boblee@example.com',9876543210,'linkedin.com/bob'),
-            ('Riya De','riyade@example.com',9786756453,'linkedin.com/riya')
+            ('Bob Lee','boblee@example.com',9876543210,'linkedin.com/in/bob'),
+            ('Riya De','riyade@example.com',9786756453,'linkedin.com/in/riya')
         ;`;
         execute_query(insertLearners);
 

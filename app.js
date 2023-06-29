@@ -1,5 +1,6 @@
-import express from 'express';
-import {viewCourses, updateCourse, addCourse, removeCourse} from './DB_Functions.js'
+import express, { response } from 'express';
+import {viewCourses, updateCourse, addCourse, removeCourse, registerLead, registerLearner} from './DB_Functions.js'
+import {validateCourses, validateLearner} from './app_validate_input.js'
 
 const app = express() //setup server
 app.listen(8000,()=>{ //run app on port 8000
@@ -7,49 +8,6 @@ app.listen(8000,()=>{ //run app on port 8000
 })    
 
 app.use(express.json());
-
-/*
-* Middleware for Validation
-*/
-
-function validateCourses(courseObj){
-    const courseFormat =`
-    {
-        "course_name": "string",
-        "instructor_id": number,
-        "max_seat": number, 
-        "free_seats": number, 
-        "start_date": "YYYY-MM-DD" 
-    }`;
-
-    const dateFormatRegex = /^\d{4}-\d{2}-\d{2}$/;  //date format
-
-    //make sure all parameters are supplied
-    if(courseObj.length !== 5)  
-        return `Insufficient Parameters. Should of the form: `+courseFormat
-
-    //make sure parameters are of valid types
-    if(
-        (typeof courseObj[0] !== 'string' || 
-        typeof courseObj[1]) !== 'number' || 
-        typeof courseObj[2] !== 'number' || 
-        typeof courseObj[3] !== 'number' ||
-        ! dateFormatRegex.test(courseObj[4])
-    )
-        return `Type Error: Json should be of the form`+courseFormat;
-    
-    //make sure free_seats < max_seats
-    if(courseObj[2] < courseObj[3])
-        return "Logical Error: Free seats cannot be greater than Max seats";
-
-    let date = new Date(courseObj[4])
-    //check if date is of valid time format
-    // & just to be safe, let's also check if it is an instance of Date
-    if(!(date instanceof Date) || isNaN(date.getTime()))    
-        return "Invalid Date!"
-
-    return 0;
-}
 
 /*
 ==================
@@ -63,13 +21,13 @@ app.get('/', (req, res)=>{
     res.send("Server Started!")
 });
 
-//view courses
+//============view courses
 app.get('/course', async(req, res)=>{
     const courses = await viewCourses();
     res.send(courses)
 });
 
-//add a new course
+//============add a new course
 app.post('/course', async (req, res)=>{
     const courses = req.body;
     const courseObj = Object.values(courses);   //extracting values
@@ -82,14 +40,59 @@ app.post('/course', async (req, res)=>{
         res.send(msg)
 });
 
-app.delete('/course/:id',(req, res)=>{
-    const id = req.params.id;
-    removeCourse(id);
+//============delete a course by id -- if time permits it
+app.delete('/course/:id',async (req, res)=>{
+    let id = req.params.id;
+    id = Number(id);    //if id is alphanumeric, id will become NaN
+    let msg;
+    if( !isNaN(id) ){
+        msg = await removeCourse(id);
+    }
+    else
+        msg = "Type Error: id should be a number";
+    res.send(msg);
 })
 
-app.put('/course/:id', (req, res)=>{
-    const id = req.params.id;
-    const { course_name, instructor_id, max_seat, free_seats, start_date } = req.body;
+//============update existing course
+app.put('/course/:id', async (req, res)=>{
+    const courses = req.body;
+    const courseObj = Object.values(courses);   //extracting values
+    let msg = validateCourses(courseObj);       //validate json 
+    if(msg == 0){
+        let id = req.params.id;
+        id = Number(id);    //if id is alphanumeric, id will become NaN
+        if( !isNaN(id) ){
+            msg = await updateCourse(id,courseObj);
+        }
+        else
+            msg = "Type Error: id should be a number";
+        res.send(msg);
+    }
+    else{
+        res.send(msg);
+    }
+})
+
+//============register new user - concequently create a lead
+app.post('/courses/:id/register', async (req, res)=>{
+    let c_id = Number ( req.params.id );   //course_id
+    let learner_info = req.body;
+    let learnerObj = Object.values(learner_info);   
+    let msg = validateLearner(learnerObj);
+    let msg_2="";
+    if(msg == 0){
+        if( !isNaN(c_id)){
+            msg = await registerLearner(learnerObj);
+            //send course id and learner email to retrieve corresponding learner id
+            msg_2 = await registerLead(c_id, learnerObj[1]);    
+        }
+        else
+            msg = "Type Error: course and learner id should be a number";
+        res.send(msg+"\n"+msg_2);
+    }
+    else
+        res.send(msg);
+
 })
 
 
