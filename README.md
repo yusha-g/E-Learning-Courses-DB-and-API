@@ -14,8 +14,6 @@
 
 <b> [4. Demonstration](https://github.com/yusha-g/E-Learning-Courses-DB-and-API#4-demonstration) </b> <br/>
 
-<b> [5. Resources Used](https://github.com/yusha-g/E-Learning-Courses-DB-and-API#5-resources-used) </b> <br/>
-
 # 1. Files
 
 ## 1.1. DB_setup.js
@@ -216,7 +214,3 @@ Before running the application, make sure you have the following dependencies in
 <b> [Youtube Link](https://www.youtube.com/watch?v=QmSgvp4dH80&ab_channel=PratyushaGh) </b>
 [![YOUTUBE LINK](https://github.com/yusha-g/E-Learning-Courses-DB-and-API/blob/caac21b0907e69e3d00df1744a52982a6b05d006/assets/img-placeholder.png)](https://www.youtube.com/watch?v=QmSgvp4dH80&ab_channel=PratyushaGh)
 
-# 5. Resources Used
-
-- ExpressJs Tutorial: [https://www.youtube.com/watch?v=SccSCuHhOw0&ab_channel=WebDevSimplified](https://www.youtube.com/watch?v=SccSCuHhOw0&ab_channel=WebDevSimplified)
-- [https://www.sammeechward.com/connect-to-mysql-from-node](https://www.sammeechward.com/connect-to-mysql-from-node)
