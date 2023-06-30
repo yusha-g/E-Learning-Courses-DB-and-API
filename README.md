@@ -12,9 +12,9 @@
 &nbsp;&nbsp;&nbsp; [3.1. Setup](https://github.com/yusha-g/E-Learning-Courses-DB-and-API#31-setup) <br/>
 &nbsp;&nbsp;&nbsp; [3.2. Running Guide](https://github.com/yusha-g/E-Learning-Courses-DB-and-API#32-running-guide) <br/>
 
-<b> [4. Demonstration] </b> <br/>
+<b> [4. Demonstration](https://github.com/yusha-g/E-Learning-Courses-DB-and-API#4-demonstration) </b> <br/>
 
-<b> [5. Resources] </b> <br/>
+<b> [5. Resources Used](https://github.com/yusha-g/E-Learning-Courses-DB-and-API#5-resources-used) </b> <br/>
 
 # 1. Files
 
@@ -26,11 +26,11 @@
 ## 1.2. DB_Functions.js
 
 - This file contains various functions that interact with the database.
-- It includes functions for 
-viewing, adding and updating a course, 
-registering a learner, 
-creating, updating and searching for a lead, 
-and adding a comment.
+- It includes functions for
+  viewing, adding and updating a course,
+  registering a learner,
+  creating, updating and searching for a lead,
+  and adding a comment.
 - Each function corresponds to an API endpoint.
 - Created for the sake simplicity, so that app.js can import and utilise it.
 
@@ -95,22 +95,22 @@ and adding a comment.
 ### Example Data
 
 1. John Doe (instructor_id=1) teaches JavaScript 101 (course_id=1).
-Alice Johnson (learner_id=1) was accepted into the JavaScript 101 course, indicated by lead_id = 1.
-Against lead_id = 1, John Doe inserts a comment, “Good Job!”
+   Alice Johnson (learner_id=1) was accepted into the JavaScript 101 course, indicated by lead_id = 1.
+   Against lead_id = 1, John Doe inserts a comment, “Good Job!”
 2. John Doe (instructor_id=1) teaches Node.js Basics (courses_id=2).
-Bob Lee (learner_id = 2)  was waitlisted from Node.js Basics course, indicated by lead_id = 2.
-Against lead_id = 3, John Doe inserts a comment, “We will update you shortly”
+   Bob Lee (learner_id = 2) was waitlisted from Node.js Basics course, indicated by lead_id = 2.
+   Against lead_id = 3, John Doe inserts a comment, “We will update you shortly”
 3. Jane Smirth (instructor_id=2) teaches Python Basics (course_id=3).
-Riya De (learder_id=3) was rejected from Python Basics course, indicated by lead_id=3.
-Against lead_id=3, Jane Smith inserts a comment, “Unfortunately, registration has ended”.
+   Riya De (learder_id=3) was rejected from Python Basics course, indicated by lead_id=3.
+   Against lead_id=3, Jane Smith inserts a comment, “Unfortunately, registration has ended”.
 
 ### Constraints when Inserting data
 
-1. Unique keys should be maintained 
-2. Cannot add new Course if a course with the same course_name and instructor_id exists. 
-3. Students are waitlisted in a courses if free_seats  ≤ 0 
-If course has already started, the student is automatically rejected. 
-4. Only instructors teaching the course can insert comments to their corresponding leads. 
+1. Unique keys should be maintained
+2. Cannot add new Course if a course with the same course_name and instructor_id exists.
+3. Students are waitlisted in a courses if free_seats ≤ 0
+   If course has already started, the student is automatically rejected.
+4. Only instructors teaching the course can insert comments to their corresponding leads.
 
 ## 2.2. API Endpoints
 
@@ -146,7 +146,7 @@ If course has already started, the student is automatically rejected.
 
 - Method: PUT
 - Endpoint: **`/leads/:id`**
-- Parameters: {  }
+- Parameters: { }
 - Actions: Update the lead status in the Leads table based on the provided lead ID.
 
 ### Lead search API
@@ -170,10 +170,10 @@ If course has already started, the student is automatically rejected.
 Before running the application, make sure you have the following dependencies installed:
 
 1. npm
-2. express 
+2. express
 3. dotenv
 4. mysql2
-5. nodemon 
+5. nodemon
 
 ## 3.1. Setup
 
@@ -182,7 +182,7 @@ Before running the application, make sure you have the following dependencies in
 - Ensure that you have Node.js installed on your system.
 - Clone or download the code files to your local machine.
 - Install Dependencies:  
-`npm install express
+  `npm install express
 npm install dotenv
 npm install mysql2
 npm install --save-dev nodemon`
@@ -190,27 +190,27 @@ npm install --save-dev nodemon`
 ### 3.1.2. Database Setup
 
 - Create a **`.env`** file in the project directory and configure the following environment variables:
-`DB_HOST = <your_database_host>, 
+  `DB_HOST = <your_database_host>, 
 DB_USERNAME = <your_username>, 
 DB_PASSWORD = <your_password>, 
 DB = <your_database_name>,
 DB_SOCKETPATH = <your_socketpath> (/Applications/MAMP/tmp/mysql/mysql.sock for MAC)`
 - Import the database schema and example data using the DB_setup.js script. Run the following command:
-`node DB_setup.js`
-This will create the necessary tables and populate them with example data.
-NOTE: DON’T RUN THE SCRIPT MORE THAN ONCE AS DUPLICATE VALUES WILL BE INSERTED
+  `node DB_setup.js`
+  This will create the necessary tables and populate them with example data.
+  NOTE: DON’T RUN THE SCRIPT MORE THAN ONCE AS DUPLICATE VALUES WILL BE INSERTED
 
-## 3.3. Running Guide
+## 3.2. Running Guide
 
 1. Open a command line interface and navigate to the project directory.
 2. Run the following command to start the server:
-`npm run devStart`
+   `npm run devStart`
 3. The server will start running, and you should see a message indicating that the server is listening on a specific port (e.g., 8000 in our case).
-The application is now running, and you can access the API endpoints described above.
+   The application is now running, and you can access the API endpoints described above.
 
 # 4. Demonstration
 
-# 5. Resources
+# 5. Resources Used
 
 - ExpressJs Tutorial: [https://www.youtube.com/watch?v=SccSCuHhOw0&ab_channel=WebDevSimplified](https://www.youtube.com/watch?v=SccSCuHhOw0&ab_channel=WebDevSimplified)
 - [https://www.sammeechward.com/connect-to-mysql-from-node](https://www.sammeechward.com/connect-to-mysql-from-node)
