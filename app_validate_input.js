@@ -14,7 +14,7 @@ export function validateCourses(courseObj){
 
     //make sure all parameters are supplied
     if(courseObj.length !== 5)  
-        return `Insufficient Parameters. Should of the form: `+courseFormat
+        return `Insufficient Parameters. Should of the form: `+courseFormat;
 
     //make sure parameters are of valid types
     if(
@@ -34,7 +34,7 @@ export function validateCourses(courseObj){
     //check if date is of valid time format
     // & just to be safe, let's also check if it is an instance of Date
     if(!(date instanceof Date) || isNaN(date.getTime()))    
-        return "Invalid Date!"
+        return "Invalid Date!";
 
     return 0;
 }
@@ -55,7 +55,7 @@ export function validateLearner(learnerObj){
 
     //make sure all parameters are supplied
     if(learnerObj.length !== 4)
-        return "Insufficient Parameters. Should be of the form:\n"+learnerFormat
+        return "Insufficient Parameters. Should be of the form:\n"+learnerFormat;
 
     //check type validity
     if(
@@ -64,7 +64,7 @@ export function validateLearner(learnerObj){
         ! phoneFormatRegex.test(learnerObj[2]) ||
         ! linkedinFormatRegex.test(learnerObj[3]) 
     )
-        return "Type Error! Should be of the form:\n"+learnerFormat
+        return "Type Error! Should be of the form:\n"+learnerFormat;
     
     return 0;
 }

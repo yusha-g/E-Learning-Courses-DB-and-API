@@ -3,12 +3,12 @@ import {
     viewCourses, updateCourse, addCourse, 
     registerLead, registerLearner, updateLead, searchLead,
     addComment
-} from './DB_Functions.js'
-import {validateCourses, validateLearner, validateLead, validateComment} from './app_validate_input.js'
+} from './DB_Functions.js';
+import {validateCourses, validateLearner, validateLead, validateComment} from './app_validate_input.js';
 
-const app = express() //setup server
+const app = express(); //setup server
 app.listen(8000,()=>{ //run app on port 8000
-    console.log("Server Started!")
+    console.log("Server Started!");
 })    
 
 app.use(express.json());
@@ -22,13 +22,13 @@ app.use(express.json());
 */
 
 app.get('/', (req, res)=>{ 
-    res.send("Server Started!")
+    res.send("Server Started!");
 });
 
 //============view courses
 app.get('/course', async(req, res)=>{
     const courses = await viewCourses();    //in app_validate_input.js
-    res.send(courses)
+    res.send(courses);
 });
 
 //============add a new course
@@ -41,7 +41,7 @@ app.post('/course', async (req, res)=>{
         res.send(query_result);
     }
     else    //Print Error
-        res.send(msg)
+        res.send(msg);
 });
 
 
@@ -130,20 +130,5 @@ app.post('/leads/comment', async (req, res)=>{
     
 })
 
-/*
-* instructor - name, email
-populateInstructorTable('John Doe', 'johndoe@example.com');
-
-* courses - course_name, instructor_id, max_seat, free_seats, start_date
-populateCoursesTable('JavaScript 101', 1, 30, 21, '2023-07-31');
-
-* LEARNER - name, email, phone_number, linkedin
-populateLearnersTable('Alice Johnson','alicejohnson@example.com',123456789,'linkedin.com/alice')
-
-* LEADS - course_id, learner_id, status
-populateLeadsTable(1, 1)
-
-* COMMENTS - lead_id, instructor_id, comment
-*/
 
 

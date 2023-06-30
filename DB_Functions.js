@@ -1,7 +1,7 @@
 import mysql from 'mysql2'
 import dotenv from 'dotenv'
-
 dotenv.config();
+
 /*
  * Remember to setup your own .env file
  */
@@ -120,7 +120,14 @@ export async function registerLead(c_id, l_email){
                     (?,?,?)
                 `;
                 await db.query(insertLead,[c_id, l_id, status]);
-                return "Lead Created for learner";
+                if(status == 'Accept'){
+                    await db.query(`
+                    UPDATE Courses
+                    SET free_seats = free_seats - 1
+                    WHERE course_id = ?;
+                    `,[c_id]);
+                }
+                return "Lead Created for learner. Entrollment Status: "+status;
 
             }catch(err){
                 return "Error Creating Lead:\n"+err;
@@ -159,7 +166,7 @@ export async function searchLead(email){
     ;`;
     try{
         const [r]=await db.query(Q,[email]);
-        return r[0]
+        return r
     }catch(err){
         return "Could not retrieve lead"
     }

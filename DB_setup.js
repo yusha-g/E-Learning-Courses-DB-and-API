@@ -96,7 +96,7 @@ db.connect((err)=>{
         execute_query(createComments);
 
         //==========POPULATE TABLES
-        
+
         const insertInstructors = `
             INSERT INTO Instructors (name, email) VALUES 
             ('John Doe', 'johndoe@example.com'),
@@ -136,15 +136,11 @@ db.connect((err)=>{
         ;`;
         execute_query(insertComments)
 
-
         //disconnect
         db.end((err)=>{
             if(err){
                 console.log("ERROR DISCONNECTING FROM DATABASE! "+err);
                 return err;
-            }
-            else{
-                console.log("=============Successfully Disconected!=============")
             }
         })
     }
