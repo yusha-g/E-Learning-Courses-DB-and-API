@@ -50,7 +50,7 @@ export async function addCourse(courseObj){
             await db.query(Q,courseObj);
             return "Successfully Added to Courses DB"
         }catch(err){
-            console.log("Error Adding Course!")
+            return "Error Adding Course!"+err;
         }
     }
     else{
@@ -66,12 +66,18 @@ export async function updateCourse(id,courseObj){
     SET course_name = ?, instructor_id = ?, max_seat = ?, free_seats = ?, start_date = ?
     WHERE course_id = ?
     ;`;
-    try{
-        await db.query(Q, values)
-        const [r] = await db.query(`SELECT * FROM Courses WHERE course_id = ?`,[id])
-        return "Updated Course\n"+JSON.stringify(r)
-    }catch(err){
-        return "Could Not Update Course \n"+err
+    const [r] = await db.query(`SELECT * FROM Courses WHERE course_name =? AND instructor_id=?`,[courseObj[0],courseObj[1]]);
+    if(r.length>0){
+        return "Duplicate Course Exists!"
+    }
+    else{
+        try{
+            await db.query(Q, values)
+            const [r] = await db.query(`SELECT * FROM Courses WHERE course_id = ?`,[id])
+            return "Updated Course\n"+JSON.stringify(r)
+        }catch(err){
+            return "Could Not Update Course \n"+err
+        }
     }
 }
 
