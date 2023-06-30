@@ -68,7 +68,12 @@ export async function updateCourse(id,courseObj){
     ;`;
     const [r] = await db.query(`SELECT * FROM Courses WHERE course_name =? AND instructor_id=?`,[courseObj[0],courseObj[1]]);
     if(r.length>0){
-        return "Duplicate Course Exists!"
+        await db.query(`
+        UPDATE Courses
+        SET max_seat=?, free_seats=?, start_date=?
+        WHERE course_id = ?
+        ;`,[courseObj[2],courseObj[3],courseObj[4],id]);
+        return "Duplicate Course Exists -- Updated Existing Course"
     }
     else{
         try{
@@ -116,8 +121,8 @@ export async function registerLead(c_id, l_email){
                 status = "Accept";
             else
                 status = "Reject";      //Course has already Started!
-
-            if(r[0].free_seat<=0)        //The course instructor can update waitlisted candidates
+            console.log(r[0].free_seats);
+            if(r[0].free_seats==0)        //The course instructor can update waitlisted candidates
                 status = 'Waitlist';
 
             try{
