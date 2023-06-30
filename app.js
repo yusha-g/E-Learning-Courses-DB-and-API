@@ -27,7 +27,7 @@ app.get('/', (req, res)=>{
 
 //============view courses
 app.get('/course', async(req, res)=>{
-    const courses = await viewCourses();
+    const courses = await viewCourses();    //in app_validate_input.js
     res.send(courses)
 });
 
@@ -35,7 +35,7 @@ app.get('/course', async(req, res)=>{
 app.post('/course', async (req, res)=>{
     const courses = req.body;
     const courseObj = Object.values(courses);   //extracting values
-    let msg = validateCourses(courseObj);       //validate json 
+    let msg = validateCourses(courseObj);       //in app_validate_input.js
     if(msg == 0){    //Successfully Validated
         let query_result = await addCourse(courseObj);
         res.send(query_result);
@@ -49,10 +49,10 @@ app.post('/course', async (req, res)=>{
 app.put('/course/:id', async (req, res)=>{
     const courses = req.body;
     const courseObj = Object.values(courses);   //extracting values
-    let msg = validateCourses(courseObj);       //validate json 
-    if(msg == 0){
+    let msg = validateCourses(courseObj);       //in app_validate_input.js 
+    if(msg == 0){       //successfully validated!
         let id = req.params.id;
-        id = Number(id);    //if id is alphanumeric, id will become NaN
+        id = Number(id);    //if id is alphanumeric, id will typecasting will make it NaN
         if( !isNaN(id) ){
             msg = await updateCourse(id,courseObj);
         }
@@ -65,7 +65,7 @@ app.put('/course/:id', async (req, res)=>{
     }
 })
 
-//============register new user - concequently create a lead
+//============register new user - consequently create a lead
 app.post('/courses/:id/register', async (req, res)=>{
     let c_id = Number ( req.params.id );   //course_id
     let learner_info = req.body;

@@ -1,6 +1,5 @@
 import mysql from 'mysql2'
 import dotenv from 'dotenv'
-import { json } from 'express';
 
 dotenv.config();
 /*
@@ -15,7 +14,7 @@ var db = mysql.createConnection({
     socketPath: process.env.DB_SOCKETPATH 
 }).promise();
 
-//LISTENING FOR ERRORS
+//LISTENING FOR ERRORS WHILE ESTABLISHING CONNECTION
 db.on('error', function(err) {
     console.log("COULDN'T CONNECT TO DATABASE:\n", err);
 });
@@ -25,11 +24,15 @@ export async function viewCourses(){
     const Q = `
     SELECT * FROM Courses;   
     ;`;
-    const [courses] = await db.query(Q);
-    return courses;
+    try{
+        const [courses] = await db.query(Q);
+        return courses;
+    }catch(err){
+        return "Could Not Fetch Courses"
+    }
 }
 
-//ADD A NEW COURSE - NOTE: cannot add course if a record with the name course_name and instructor_id exists
+//ADD A NEW COURSE - NOTE: cannot add course if a record with the same course_name and instructor_id exists
 export async function addCourse(courseObj){
     const Q = `
     INSERT INTO Courses (course_name, instructor_id, max_seat, free_seats, start_date) VALUES 
@@ -55,6 +58,7 @@ export async function addCourse(courseObj){
     }  
 }
 
+//UPDATE A COURSE
 export async function updateCourse(id,courseObj){
     const values = courseObj.concat(id);
     const Q=`
@@ -71,6 +75,7 @@ export async function updateCourse(id,courseObj){
     }
 }
 
+//REGISTER NEW LEARNER -- email is unique
 export async function registerLearner(learnerObj){  //email id is unique
     console.log(learnerObj)
     const Q=`
@@ -85,14 +90,15 @@ export async function registerLearner(learnerObj){  //email id is unique
 
 }
 
+//A LEAD IS CREATED WHENEVER A NEW USER REGISTERS
 export async function registerLead(c_id, l_email){
     const get_learner_id=`
     SELECT learner_id FROM Learners WHERE
     email = ?
     ;`;
     try{    //GET LEARNER ID
-        let [l_id] = await db.query(get_learner_id,[l_email])
-        l_id = l_id[0].learner_id
+        let [l_id] = await db.query(get_learner_id,[l_email]);
+        l_id = l_id[0].learner_id;
         try{ 
             const [r] = await db.query(
                 `SELECT start_date, free_seats FROM Courses
@@ -101,29 +107,29 @@ export async function registerLead(c_id, l_email){
             let status="";
             //SET STATUS
             if(r[0].start_date > curDate)
-                status = "Accept"
+                status = "Accept";
             else
                 status = "Reject";      //Course has already Started!
 
             if(r[0].free_seat<=0)        //The course instructor can update waitlisted candidates
-                status = 'Waitlist'
+                status = 'Waitlist';
 
             try{
                 const insertLead=`
                     INSERT INTO Leads (course_id, learner_id, status) VALUES 
                     (?,?,?)
                 `;
-                await db.query(insertLead,[c_id, l_id, status])
+                await db.query(insertLead,[c_id, l_id, status]);
                 return "Lead Created for learner";
 
             }catch(err){
-                return "Error Creating Lead:\n"+err
+                return "Error Creating Lead:\n"+err;
             }
         }catch(err){
-            return "Error Registering:\n"+err
+            return "Error Registering:\n"+err;
         }
     }catch(err){
-        return "Learner not registered!:\n",+err
+        return "Learner not registered!:\n",+err;
     }
 }
 
@@ -137,13 +143,13 @@ export async function updateLead(id, leadInfo){
     ;`;
     try{
         await db.query(Q,values);
-        return "Lead Updated Successfully!"
+        return "Lead Updated Successfully!";
     }catch(err){
-        return "Lead Could not be Updated!"
+        return "Lead Could not be Updated!";
     }
 }
 
-//SEARCH LEAD
+//SEARCH LEAD my learner email (since it's unique)
 export async function searchLead(email){
     const Q=`
     SELECT Leads.lead_id, Leads.course_id, Leads.learner_id, Leads.status FROM Leads
@@ -168,7 +174,7 @@ export async function addComment(commentObj){
     ;`;
     /*
      * Why not just add INSERT in query 'Q'?
-     * While it will work just fine, it won't return a statement if the record is not inserted
+     * While it would work just fine, it won't return a statement if the record is not inserted
      */
     try{
 
@@ -188,5 +194,4 @@ export async function addComment(commentObj){
     }catch(err){
         return "Could not Add Comment:\n"+err;
     }
-    
 }

@@ -96,6 +96,7 @@ db.connect((err)=>{
         execute_query(createComments);
 
         //==========POPULATE TABLES
+        
         const insertInstructors = `
             INSERT INTO Instructors (name, email) VALUES 
             ('John Doe', 'johndoe@example.com'),

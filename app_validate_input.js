@@ -1,3 +1,5 @@
+
+//========VALIDATE COURSE INFO==========
 export function validateCourses(courseObj){
     const courseFormat =`
     {
@@ -91,6 +93,7 @@ export function validateLead(lead_info){
 
 }
 
+//========VALIDATE COMMENT INFO==========
 export function validateComment(comment_info){
     const commentFormat = `
     {
