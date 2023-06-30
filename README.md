@@ -2,16 +2,15 @@
 
 # Table of Contents
 
-<b> [1. Files] </b> <br/>
+<b> [1. Files](https://github.com/yusha-g/E-Learning-Courses-DB-and-API#1-files) </b> <br/>
 
-<b> [2. Design] </b> <br/>
-&nbsp;&nbsp;&nbsp; [2.1. Database Design] <br/>
-&nbsp;&nbsp;&nbsp; [2.2. API Endpoints] <br/>
+<b> [2. Design](https://github.com/yusha-g/E-Learning-Courses-DB-and-API#2-design) </b> <br/>
+&nbsp;&nbsp;&nbsp; [2.1. Database Design](https://github.com/yusha-g/E-Learning-Courses-DB-and-API#21-database-design) <br/>
+&nbsp;&nbsp;&nbsp; [2.2. API Endpoints](https://github.com/yusha-g/E-Learning-Courses-DB-and-API#22-api-endpoints) <br/>
 
-<b> [3. Running Guide] </b> <br/>
-&nbsp;&nbsp;&nbsp; [3.1. Installing Dependencies] <br/>
-&nbsp;&nbsp;&nbsp; [3.2. Environment Setup] <br/>
-&nbsp;&nbsp;&nbsp; [3.3. Running Guide] <br/>
+<b> [3. Running Guide](https://github.com/yusha-g/E-Learning-Courses-DB-and-API#3-running-guide) </b> <br/>
+&nbsp;&nbsp;&nbsp; [3.1. Setup](https://github.com/yusha-g/E-Learning-Courses-DB-and-API#31-setup) <br/>
+&nbsp;&nbsp;&nbsp; [3.2. Running Guide](https://github.com/yusha-g/E-Learning-Courses-DB-and-API#32-running-guide) <br/>
 
 <b> [4. Demonstration] </b> <br/>
 
