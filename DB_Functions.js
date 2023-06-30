@@ -88,7 +88,6 @@ export async function updateCourse(id,courseObj){
 
 //REGISTER NEW LEARNER -- email is unique
 export async function registerLearner(learnerObj){  //email id is unique
-    console.log(learnerObj)
     const Q=`
         INSERT INTO Learners (name, email, phone_number, linkedin) VALUES (?,?,?,?)
     ;`;
@@ -121,7 +120,6 @@ export async function registerLead(c_id, l_email){
                 status = "Accept";
             else
                 status = "Reject";      //Course has already Started!
-            console.log(r[0].free_seats);
             if(r[0].free_seats==0)        //The course instructor can update waitlisted candidates
                 status = 'Waitlist';
 
