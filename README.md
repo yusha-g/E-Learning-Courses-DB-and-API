@@ -110,6 +110,7 @@
 2. Cannot add new Course if a course with the same course_name and instructor_id exists.
 3. Students are waitlisted in a courses if free_seats ≤ 0
    If course has already started, the student is automatically rejected.
+   When a student is accepted into a course, the free_seats in that course is decreased by 1. 
 4. Only instructors teaching the course can insert comments to their corresponding leads.
 
 ## 2.2. API Endpoints
@@ -138,7 +139,7 @@
 ### Course registration API [Lead creation]
 
 - Method: POST
-- Endpoint: **`/courses/:course_id/register/:learner_id`**
+- Endpoint: **`/courses/:id/register/`**
 - Parameters: { course_id, learner_id, status }
 - Actions: Create a new learner in the Learners table and create a new lead in the Leads table linking the course and learner.
 
@@ -182,19 +183,19 @@ Before running the application, make sure you have the following dependencies in
 - Ensure that you have Node.js installed on your system.
 - Clone or download the code files to your local machine.
 - Install Dependencies:  
-  `npm install express
-npm install dotenv
-npm install mysql2
-npm install --save-dev nodemon`
+  `npm install express` <br>
+`npm install dotenv`<br>
+`npm install mysql2`<br>
+`npm install --save-dev nodemon`
 
 ### 3.1.2. Database Setup
 
-- Create a **`.env`** file in the project directory and configure the following environment variables:
-  `DB_HOST = <your_database_host>, 
-DB_USERNAME = <your_username>, 
-DB_PASSWORD = <your_password>, 
-DB = <your_database_name>,
-DB_SOCKETPATH = <your_socketpath> (/Applications/MAMP/tmp/mysql/mysql.sock for MAC)`
+- Create a **`.env`** file in the project directory and configure the following environment variables: <br>
+  `DB_HOST = <your_database_host>,
+  DB_USERNAME = <your_username>,
+  DB_PASSWORD = <your_password>,
+  DB = <your_database_name>,
+  DB_SOCKETPATH = <your_socketpath> (/Applications/MAMP/tmp/mysql/mysql.sock for MAC)`
 - Import the database schema and example data using the DB_setup.js script. Run the following command:
   `node DB_setup.js`
   This will create the necessary tables and populate them with example data.
