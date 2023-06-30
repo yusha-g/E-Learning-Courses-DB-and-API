@@ -209,7 +209,10 @@ DB_SOCKETPATH = <your_socketpath> (/Applications/MAMP/tmp/mysql/mysql.sock for M
    The application is now running, and you can access the API endpoints described above.
 
 # 4. Demonstration
-https://youtu.be/QmSgvp4dH80
+[Download Demo .mp4](https://raw.githubusercontent.com/yusha-g/E-Learning-Courses-DB-and-API/master/assets/demo.mp4)
+<br/>
+<b> Youtube Link </b>
+[![YOUTUBE LINK](https://github.com/yusha-g/E-Learning-Courses-DB-and-API/blob/caac21b0907e69e3d00df1744a52982a6b05d006/assets/img-placeholder.png)](https://www.youtube.com/watch?v=QmSgvp4dH80&ab_channel=PratyushaGh)
 
 # 5. Resources Used
 
