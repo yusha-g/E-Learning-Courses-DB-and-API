@@ -94,14 +94,14 @@
 
 ### Example Data
 
-1. John Doe (instructor_id=1) teaches JavaScript 101 (course_id=1).
-   Alice Johnson (learner_id=1) was accepted into the JavaScript 101 course, indicated by lead_id = 1.
+1. John Doe (instructor_id=1) teaches JavaScript 101 (course_id=1).<br/>
+   Alice Johnson (learner_id=1) was accepted into the JavaScript 101 course, indicated by lead_id = 1.<br/>
    Against lead_id = 1, John Doe inserts a comment, “Good Job!”
-2. John Doe (instructor_id=1) teaches Node.js Basics (courses_id=2).
-   Bob Lee (learner_id = 2) was waitlisted from Node.js Basics course, indicated by lead_id = 2.
+2. John Doe (instructor_id=1) teaches Node.js Basics (courses_id=2).<br/>
+   Bob Lee (learner_id = 2) was waitlisted from Node.js Basics course, indicated by lead_id = 2.<br/>
    Against lead_id = 3, John Doe inserts a comment, “We will update you shortly”
-3. Jane Smirth (instructor_id=2) teaches Python Basics (course_id=3).
-   Riya De (learder_id=3) was rejected from Python Basics course, indicated by lead_id=3.
+3. Jane Smirth (instructor_id=2) teaches Python Basics (course_id=3).<br/>
+   Riya De (learder_id=3) was rejected from Python Basics course, indicated by lead_id=3.<br/>
    Against lead_id=3, Jane Smith inserts a comment, “Unfortunately, registration has ended”.
 
 ### Constraints when Inserting data
@@ -196,10 +196,11 @@ Before running the application, make sure you have the following dependencies in
   DB_PASSWORD = <your_password>,
   DB = <your_database_name>,
   DB_SOCKETPATH = <your_socketpath> (/Applications/MAMP/tmp/mysql/mysql.sock for MAC)`
-- Import the database schema and example data using the DB_setup.js script. Run the following command:
+- Import the database schema and example data using the DB_setup.js script.
+- Run the following command:
   `node DB_setup.js`
-  This will create the necessary tables and populate them with example data.
-  NOTE: DON’T RUN THE SCRIPT MORE THAN ONCE AS DUPLICATE VALUES WILL BE INSERTED
+  <br/>This will create the necessary tables and populate them with example data.<br/>
+  <b>NOTE</b>: Once connection is successfully established, running the script more than once can lead to duplicate records in some cases. 
 
 ## 3.2. Running Guide
 
@@ -207,7 +208,7 @@ Before running the application, make sure you have the following dependencies in
 2. Run the following command to start the server:
    `npm run devStart`
 3. The server will start running, and you should see a message indicating that the server is listening on a specific port (e.g., 8000 in our case).
-   The application is now running, and you can access the API endpoints described above.
+   The application will now be running, and you can access the API endpoints described above.
 
 # 4. Demonstration
 [Download Demo .mp4](https://raw.githubusercontent.com/yusha-g/E-Learning-Courses-DB-and-API/master/assets/demo.mp4)
